@@ -71,7 +71,7 @@ abstract public class LinearClassifier {
 	 * Subclasses can override it to gather statistics or update displays.
 	 */
 	protected void trainingReport(List<Example> examples, int stepnum, int nsteps) {
-		//System.out.println(stepnum + "\t" + accuracy(examples));
+		System.out.println(stepnum + "\t" + accuracy(examples));
 	}
 	
 	/**

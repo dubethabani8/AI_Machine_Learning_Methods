@@ -13,14 +13,25 @@ public class PerceptronClassifier extends LinearClassifier {
 	 * (AIMA Eq. 18.7): w_i \leftarrow w_i+\alpha(y-h_w(x)) \times x_i 
 	 */
 	public void update(double[] x, double y, double alpha) {
+		
 		// This must be implemented by you
+		
+		double h_w = threshold(VectorOps.dot(weights,x));  //dot product
+		for(int i = 0; i < weights.length; i++)
+			weights[i] = weights[i]+(alpha*(y - h_w)*x[i]);
+
 	}
 	
 	/**
 	 * A PerceptronClassifier uses a hard 0/1 threshold.
 	 */
 	public double threshold(double z) {
+		
+		
 		// This must be implemented by you
+		
+		if(z<0) return 0;
+		return 1;
 	}
 	
 }

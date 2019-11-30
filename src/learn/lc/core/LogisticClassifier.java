@@ -14,6 +14,10 @@ public class LogisticClassifier extends LinearClassifier {
 	 */
 	public void update(double[] x, double y, double alpha) {
 		// This must be implemented by you
+		
+		double h_w = threshold(VectorOps.dot(weights,x));
+		for(int i = 0; i < weights.length; i++)
+			weights[i] = weights[i]+ (alpha*(y-h_w)*(h_w)*(1-h_w)*x[i]);
 	}
 	
 	/**
@@ -21,6 +25,8 @@ public class LogisticClassifier extends LinearClassifier {
 	 */
 	public double threshold(double z) {
 		// This must be implemented by you
+		return 1/(1+Math.pow(Math.E, -z));
+
 	}
 
 }
