@@ -1,6 +1,9 @@
 package learn.lc.examples;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import learn.lc.core.DecayingLearningRateSchedule;
@@ -11,6 +14,8 @@ import learn.lc.core.LogisticClassifier;
  * Program for testing the LogisticClassifier.
  */
 public class LogisticClassifierTest {
+	
+	
 	
 	/**
 	 * Read the Data from the file with the given filename, create a
@@ -25,12 +30,21 @@ public class LogisticClassifierTest {
 		
 		List<Example> examples = Data.readFromFile(filename);
 		int ninputs = examples.get(0).inputs.length; 
+		
+		
+		
 		LogisticClassifier classifier = new LogisticClassifier(ninputs) {
+			
+			
 			public void trainingReport(List<Example> examples, int stepnum, int nsteps) {
 				double oneMinusError = 1.0-squaredErrorPerSample(examples);
-				System.out.println(stepnum + "\t" + oneMinusError);
+				//if (stepnum % 100 == 0)
+				this.out.write(stepnum + "\t" + oneMinusError + "\n");
+					//System.out.println(stepnum + "\t" + oneMinusError);
 			}
 		};
+		
+		
 		if (alpha > 0) {
 			classifier.train(examples, nsteps, alpha);
 		} else {

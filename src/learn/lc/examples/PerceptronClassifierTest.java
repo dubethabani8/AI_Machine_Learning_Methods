@@ -27,7 +27,9 @@ public class PerceptronClassifierTest {
 			@Override
 			public void trainingReport(List<Example> examples, int stepnum, int nsteps) {
 				double accuracy = accuracy(examples);
-				System.out.println(stepnum + "\t" + accuracy);
+				this.out.write(stepnum + "\t" + accuracy + "\n");
+
+				//System.out.println(stepnum + "\t" + accuracy);
 			}
 		};
 		if (alpha > 0) {

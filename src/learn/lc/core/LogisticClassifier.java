@@ -1,11 +1,17 @@
 package learn.lc.core;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import learn.math.util.VectorOps;
 
 public class LogisticClassifier extends LinearClassifier {
-	
-	public LogisticClassifier(int ninputs) {
+	protected PrintWriter out;
+	public LogisticClassifier(int ninputs) throws IOException {
 		super(ninputs);
+		out = new PrintWriter(new BufferedWriter(new FileWriter("output.txt")));
 	}
 	
 	/**

@@ -13,6 +13,9 @@ public class LogisticUnit extends NeuronUnit {
 	@Override
 	public double activation(double z) {
 		// This must be implemented by you
+		
+		return 1/(1+Math.pow(Math.E, -z));
+
 	}
 	
 	/**
@@ -34,6 +37,8 @@ public class LogisticUnit extends NeuronUnit {
 	@Override
 	public void update(double[] x, double y, double alpha) {
 		// This must be implemented by you
+		
+		
 	}
 	
 }

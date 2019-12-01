@@ -1,11 +1,20 @@
 package learn.lc.core;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import learn.math.util.VectorOps;
 
 public class PerceptronClassifier extends LinearClassifier {
-	
-	public PerceptronClassifier(int ninputs) {
+	protected PrintWriter out;
+
+	public PerceptronClassifier(int ninputs) throws IOException {
+		
 		super(ninputs);
+		out = new PrintWriter(new BufferedWriter(new FileWriter("output.txt")));
+
 	}
 	
 	/**

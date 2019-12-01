@@ -1,4 +1,4 @@
-package learn.nn.core;
+	package learn.nn.core;
 
 import java.util.List;
 import java.util.Random;
@@ -183,13 +183,13 @@ abstract public class MultiLayerFeedForwardNeuralNetwork extends FeedForwardNeur
 
 		// This must be implemented by you
 
-		// for each node j in the output layer do
-		//     Delta[j] <- g'(in_j) \times (y_j - a_j)
-		// for l = L-1 to 1 do
-		//     for each node i in layer l do 
-		//         Delta[i] <- g'(in_i) * \sum_j w_ij Delta[j]
-		// for each weight w_ij in network do
-		//     w_ij <- w_ij + alpha * a_i * delta_j
+//		 for each node j in the output layer do
+//		     Delta[j] <- g'(in_j) \times (y_j - a_j)
+//		 for l = L-1 to 1 do
+//		     for each node i in layer l do 
+//		         Delta[i] <- g'(in_i) * \sum_j w_ij Delta[j]
+//		 for each weight w_ij in network do
+//		     w_ij <- w_ij + alpha * a_i * delta_j
 	}
 	
 	/**
