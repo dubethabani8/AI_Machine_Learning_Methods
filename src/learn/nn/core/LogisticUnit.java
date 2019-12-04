@@ -1,5 +1,7 @@
 package learn.nn.core;
 
+import learn.math.util.VectorOps;
+
 /**
  * A LogisticUnit is a Unit that uses a sigmoid
  * activation function.
@@ -37,7 +39,8 @@ public class LogisticUnit extends NeuronUnit {
 	@Override
 	public void update(double[] x, double y, double alpha) {
 		// This must be implemented by you
-		
+	
+
 		
 	}
 	

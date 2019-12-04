@@ -40,7 +40,7 @@ public class LogisticClassifierTest {
 				double oneMinusError = 1.0-squaredErrorPerSample(examples);
 				//if (stepnum % 100 == 0)
 				this.out.write(stepnum + "\t" + oneMinusError + "\n");
-					//System.out.println(stepnum + "\t" + oneMinusError);
+				System.out.println(stepnum + "\t" + oneMinusError);
 			}
 		};
 		
