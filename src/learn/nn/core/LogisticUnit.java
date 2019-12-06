@@ -2,6 +2,7 @@ package learn.nn.core;
 
 import learn.math.util.VectorOps;
 
+
 /**
  * A LogisticUnit is a Unit that uses a sigmoid
  * activation function.
@@ -39,8 +40,11 @@ public class LogisticUnit extends NeuronUnit {
 	@Override
 	public void update(double[] x, double y, double alpha) {
 		// This must be implemented by you
-	
-
+//		double h_w = threshold(VectorOps.dot(weights,x));
+//		for(int i = 0; i < weights.length; i++)
+//			weights[i] = weights[i]+ (alpha*(y-h_w)*(h_w)*(1-h_w)*x[i]);
+//	
+		
 		
 	}
 	

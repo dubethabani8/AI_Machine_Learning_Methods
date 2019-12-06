@@ -179,18 +179,41 @@ abstract public class MultiLayerFeedForwardNeuralNetwork extends FeedForwardNeur
 	 * (3) ``Propagating deltas backward from output layer to input layer''
 	 * (4) ``Update every weight in network using deltas''
 	 */
+//	public void backprop(Example example, double alpha) {
+//
+//		// This must be implemented by you
+//
+////		 for each node j in the output layer do
+////		     Delta[j] <- g'(in_j) \times (y_j - a_j)
+////		 for l = L-1 to 1 do
+////		     for each node i in layer l do 
+////		         Delta[i] <- g'(in_i) * \sum_j w_ij Delta[j]
+////		 for each weight w_ij in network do
+////		     w_ij <- w_ij + alpha * a_i * delta_j
+//	}
 	public void backprop(Example example, double alpha) {
-
-		// This must be implemented by you
-
-//		 for each node j in the output layer do
-//		     Delta[j] <- g'(in_j) \times (y_j - a_j)
-//		 for l = L-1 to 1 do
-//		     for each node i in layer l do 
-//		         Delta[i] <- g'(in_i) * \sum_j w_ij Delta[j]
-//		 for each weight w_ij in network do
-//		     w_ij <- w_ij + alpha * a_i * delta_j
+		
+		LogisticUnit[] outputUnits = (LogisticUnit[]) this.getOutputUnits();
+		for(int j = 0; j < outputUnits.length; j++) {
+			double deltaj = 0.0;
+			for(Connection connection : outputUnits[j].incomingConnections) {
+				deltaj += (connection.weight * connection.src.getOutput());
+			}
+			double activationPrime = outputUnits[j].activationPrime(deltaj);
+			outputUnits[j].delta = activationPrime * (example.outputs[j] - outputUnits[j].output);
+		}update();
+		
+		for (int l=1; l < this.layers.length; l++) {
+			LogisticUnit units[] = (LogisticUnit[])this.getLayerUnits(l);
+			for (int index=0; index < units.length; index++) {
+				for (Connection connection : units[index].incomingConnections) {
+					connection.weight += (alpha * connection.src.getOutput() * units[index].delta);
+				}
+			}
+		}
 	}
+	
+
 	
 	/**
 	 * Return true if this MultiLayerFeedForwardNeuralNetwork gets the right answer
@@ -214,7 +237,6 @@ abstract public class MultiLayerFeedForwardNeuralNetwork extends FeedForwardNeur
 		boolean result = (example.outputs[prediction] == 1.0);
 		return result;
 	}
-
 	/**
 	 * Run a k-fold cross-validation experiment on this MultiLayerFeedForwardNeuralNetwork using
 	 * the given Examples and return the average accuracy over the k trials.
@@ -235,4 +257,22 @@ abstract public class MultiLayerFeedForwardNeuralNetwork extends FeedForwardNeur
 		return super.kFoldCrossValidate(examples, k, trainer, tester);
 	}
 
+	 public void update() {
+		 for(int l = (this.layers.length-2); l > 0; l--) {  
+				LogisticUnit[] hiddenLayerUnits = (LogisticUnit[]) this.getLayerUnits(l);
+				for(int i = 0; i < hiddenLayerUnits.length; i++) {
+					double in_i = 0.0;
+					for(Connection connection : hiddenLayerUnits[i].incomingConnections) {
+						in_i += (connection.weight * connection.src.getOutput());
+					}
+					double activationPrime = hiddenLayerUnits[i].activationPrime(in_i);
+					double sum = 0.0;
+					int n = 0;
+					for(Connection connection : hiddenLayerUnits[i].outgoingConnections) {
+						sum += (connection.weight * (this.getLayerUnits(l+1)[n++].delta));
+					}
+					hiddenLayerUnits[i].delta = activationPrime * sum;
+				}
+			}
+	 }
 }
